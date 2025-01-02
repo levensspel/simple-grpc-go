@@ -24,8 +24,14 @@ func (s *server) RegisterUser(_ context.Context, in *pb.RegisterUserRequest) (*p
 	log.Printf("Received Name: %v", in.GetName())
 	log.Printf("Received Username: %v", in.GetUsername())
 	log.Printf("Received Email: %v", in.GetEmail())
+	for k, v := range in.GetSettings() {
+		log.Printf("Received Settings->%s: %s", k, v)
+	}
 
-	return &pb.RegisterUserResponse{UserId: rand.Uint32()}, nil
+	return &pb.RegisterUserResponse{
+		UserId:      rand.Uint32(),
+		EmailStatus: pb.EmailStatus_EMAIL_UNVERIFIED,
+	}, nil
 }
 
 func main() {

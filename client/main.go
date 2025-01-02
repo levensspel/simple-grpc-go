@@ -34,9 +34,14 @@ func main() {
 		Username: "your_username",
 		Email:    "example@email.com",
 		Password: "SuperSecretPassword",
+		Settings: map[string]string{
+			"Theme":    "dark",
+			"Language": "id",
+		},
 	})
 	if err != nil {
 		log.Fatalf("could not greet: %v", err)
 	}
 	log.Printf("Returned User ID: %d", r.GetUserId())
+	log.Printf("Returned Email Status: %d", r.GetEmailStatus())
 }
