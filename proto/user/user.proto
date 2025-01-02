@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+package user;
+
+option go_package = "github.com/levensspel/simple-grpc-go/proto/user";
+
+service UserService {
+  rpc RegisterUser (RegisterUserRequest) returns (RegisterUserResponse) {}
+}
+
+message RegisterUserRequest {
+  string name = 1;
+  string username = 2;
+  string email = 3;
+  string password = 4;
+}
+
+message RegisterUserResponse {
+  uint32 user_id = 1;
+
+  EmailStatus email_status = 2;
+}
+
+enum EmailStatus {
+  EMAIL_UNVERIFIED = 0;
+  EMAIL_VERIFIED = 1;
+  EMAIL_BLOCKED = 2;
+}
