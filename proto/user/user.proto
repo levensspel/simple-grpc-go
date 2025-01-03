@@ -15,6 +15,12 @@ message RegisterUserRequest {
   string password = 4;
 
   map<string, string> settings = 5;
+
+  oneof role {
+    UserRole user_role = 6;
+    MembershipRole membership_role = 7;
+    CreatorRole creator_role = 8;
+  }
 }
 
 message RegisterUserResponse {
@@ -24,7 +30,34 @@ message RegisterUserResponse {
 }
 
 enum EmailStatus {
-  EMAIL_UNVERIFIED = 0;
+  EMAIL_UNVERIFIED = 0; // The first enum value must be zero for open enums.
   EMAIL_VERIFIED = 1;
   EMAIL_BLOCKED = 2;
+}
+
+enum MembershipPerks {
+  PERKS_FREE_ADS = 0;
+  PERKS_HIGHER_VIDEO_QUALITY = 1;
+  PERKS_VIDEO_DOWNLOAD = 2;
+  PERKS_BACKGROUND_PLAY = 3;
+}
+
+enum RolePermission {
+  PERMISSION_UPLOAD_HIGHER_VIDEO_QUALITY = 0;
+  PERMISSION_MONETIZE_VIDEO = 1;
+  PERMISSION_REDEEM_MONEY = 2;
+  PERMISSION_OPEN_MEMBERSHIP = 3;
+}
+
+message UserRole {
+  uint32 account_level = 1;
+}
+
+message MembershipRole {
+  uint32 account_level = 1;
+  repeated MembershipPerks perks = 2;
+}
+
+message CreatorRole {
+  repeated RolePermission permissions = 1;
 }
